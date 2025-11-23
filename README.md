@@ -9,7 +9,7 @@ AnyGrasp SDK for grasp detection & tracking.
 [[graspnetAPI](https://github.com/graspnet/graspnetAPI)]
 
 ## Update
-* **Nov 23, 2025** Support Python 3.11/3.12/3.13.
+* **November 23, 2025** Support CUDA 12.8 and Python 3.11/3.12/3.13.
 
 * **August 1, 2024** Support Python 3.10.
 
@@ -38,20 +38,38 @@ AnyGrasp SDK for grasp detection & tracking.
 **AnyGrasp catching swimming robot fish**
 
 ## Requirements
-- Python 3.6/3.7/3.8/3.9/3.10
-- PyTorch 1.7.1+ with CUDA 11.x/12.1
+- Python 3.6-3.13
+- PyTorch 1.7.1+ with CUDA 11.x/12.x
 - [MinkowskiEngine](https://github.com/NVIDIA/MinkowskiEngine) v0.5.4
 
 
 ## Installation
-1. Follow MinkowskiEngine [instructions](https://github.com/NVIDIA/MinkowskiEngine#anaconda) to install [Anaconda](https://www.anaconda.com/), cudatoolkit, Pytorch and MinkowskiEngine. If you are using CUDA 12.1 and encounter compatibility issue when installing MinkowskiEngine, you could try [this branch](https://github.com/chenxi-wang/MinkowskiEngine/tree/cuda-12-1). **Note that you need ``export MAX_JOBS=2;`` before ``pip install`` if you are running on an laptop due to [this issue](https://github.com/NVIDIA/MinkowskiEngine/issues/228)**. If PyTorch reports a compatibility issue during program execution, you can re-install PyTorch via Pip instead of Anaconda.
+1. Install [Pytorch](https://pytorch.org/get-started/locally/). Choose the appropriate version based on your environment.
 
-2. Install other requirements from Pip.
+2. Install MinkowskiEngine. We have modified MinkowskiEngine for better adpatation.
+```bash
+mkdir dependencies && cd dependencies
+conda install openblas-devel -c anaconda
+export CUDA_HOME=/path/to/cuda
+git clone git@github.com:chenxi-wang/MinkowskiEngine.git
+cd MinkowskiEngine
+
+# Uncomment the following line if you are using CUDA 12.x.
+# git checkout cuda-12-1
+
+# Uncomment the following line if you are using CUDA 12.8.
+# sed -i 's/\bauto __raw = __to_address(__r.get());/auto __raw = std::__to_address(__r.get());/' /usr/include/c++/11/bits/shared_ptr_base.h
+
+python setup.py install --blas_include_dirs=${CONDA_PREFIX}/include --blas_library_dirs=${CONDA_PREFIX}/lib --blas=openblas
+cd ../..
+```
+
+3. Install other requirements from Pip.
 ```bash
     pip install -r requirements.txt
 ```
 
-3. Install ``pointnet2`` module.
+4. Install ``pointnet2`` module.
 ```bash
     cd pointnet2
     python setup.py install
