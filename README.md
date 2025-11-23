@@ -9,6 +9,8 @@ AnyGrasp SDK for grasp detection & tracking.
 [[graspnetAPI](https://github.com/graspnet/graspnetAPI)]
 
 ## Update
+* **Nov 23, 2025** Support Python 3.11/3.12/3.13.
+
 * **August 1, 2024** Support Python 3.10.
 
 * **May 7, 2024** Add new features and flags to AnyGrasp detector:
