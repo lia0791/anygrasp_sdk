@@ -6,3 +6,7 @@
 .DS_Store
 .TimeRecord
 license
+dependencies/
+grasp_detection/log/
+grasp_tracking/log/
+pointnet2/build/
